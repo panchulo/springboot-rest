@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        lombokVersion = '1.18.4'
+    }
+    
+    apply plugin: "eclipse"
+}
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    /*maven {
+        url = 'http://nexus.ic.cnsv.cl/repository/maven-public/'
+    }*/
+}
+
+dependencies {
+	compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.5.RELEASE'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.2.5.RELEASE'
+    implementation 'mysql:mysql-connector-java:8.0.19'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'com.zaxxer:HikariCP:3.4.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.5.RELEASE'
+}
+
+group = 'cl.cnsv.poc'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

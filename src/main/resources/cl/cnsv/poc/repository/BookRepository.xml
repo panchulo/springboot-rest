@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cl.cnsv.poc.repository.BookRepository">
+
+	<select id="getById" parameterType="int"
+		resultType="cl.cnsv.poc.model.Book">
+		SELECT BOOK_ID AS ID,NAME,PRICE FROM LIBRARY.BOOK WHERE
+		BOOK_ID=#{id}
+	</select>
+
+	<select id="getAll" resultType="hashmap">
+		SELECT BOOK_ID AS ID,NAME,PRICE
+		FROM LIBRARY.BOOK ORDER BY NAME ASC
+	</select>
+
+</mapper>
